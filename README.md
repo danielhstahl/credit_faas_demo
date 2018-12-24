@@ -39,11 +39,11 @@ Regardless of whether you download the test files, you can build the binaries wi
 ## How to run
 To get the expected shortfall and value at risk for granular (1 million) loans, run the following:
 
-`./target/release/loan_cf $(cat ./data/parameters.json)  ./data/loans.json`
+`./target/release/main $(cat ./data/parameters.json)  ./data/loans.json`
 
 With optional density export:
 
-`./target/release/loan_cf $(cat ./data/parameters.json)  ./data/loans.json ./docs/loan_density_full.json`
+`./target/release/main $(cat ./data/parameters.json)  ./data/loans.json ./docs/loan_density_full.json`
 
 ## Recommended implementation
 In a real production setting, there will typically be a finite set of segments that describe loans.  For example, a loan may have one of 10 risk ratings and one of 10 facility grades.  Loans may also be grouped by rough exposure amount (eg, roughly 10 separate exposures).  This leads to 1000 different combinations.  Instead of simulating over every single loan, the model could simulate over each group, with each group multiplied by the number of loans in each group.  If there are 30 loans with risk rating 4, facility grade 6, and in exposure segment 5, then the exponent of the characteristic function would be 30*p(e^{uil}-1) where p is the probability of default associated with risk rating 4 and l is the combined dollar loss for a loan in segment 5 and facility grade 6.  
@@ -52,11 +52,11 @@ This will dramatically decrease the computation time.
 
 To run the demo for this recommended implementation, 
 
-`./target/release/loan_cf $(cat ./data/parameters.json)  ./data/loans_grouped.json`
+`./target/release/main $(cat ./data/parameters.json)  ./data/loans_grouped.json`
 
 With optional density export:
 
-`./target/release/loan_cf $(cat ./data/parameters.json)  ./data/loans_grouped.json ./docs/loan_density_aggr.json`
+`./target/release/main $(cat ./data/parameters.json)  ./data/loans_grouped.json ./docs/loan_density_aggr.json`
 
 
 ## Comparison of granular and recommended implementations

@@ -2,8 +2,7 @@ extern crate fang_oost;
 extern crate num_complex;
 extern crate rayon;
 extern crate cf_functions;
-extern crate utils;
-use utils::loan_ec;
+extern crate loan_ec;
 extern crate cf_dist_utils;
 use self::num_complex::Complex;
 use self::rayon::prelude::*;
@@ -97,10 +96,7 @@ fn main()-> Result<(), io::Error> {
     let systemic_variance=r_squared.iter().map(|&r_sq|{
         get_systemic_variance(p, r_sq)//sqrt since given r-squared
     }).collect::<Vec<_>>();
-    
-    systemic_variance.iter().for_each(|v|{
-        println!("this is var: {}", v);
-    });
+
     let liquid_fn=loan_ec::get_liquidity_risk_fn(lambda, q);
     let lgd_fn=|u:&Complex<f64>, l:f64, lgd_v:f64|{
         if lgd_v>0.0{
