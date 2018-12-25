@@ -92,7 +92,7 @@ fn main()-> Result<(), io::Error> {
         ..
     }= serde_json::from_str(args[1].as_str())?;
     let num_w=r_squared.len();
-    let p=0.05;//just for tests
+    let p=0.05;//just for test...note that this should be whatever the segment risk rating maps to.
     let systemic_variance=r_squared.iter().map(|&r_sq|{
         get_systemic_variance(p, r_sq)//sqrt since given r-squared
     }).collect::<Vec<_>>();
