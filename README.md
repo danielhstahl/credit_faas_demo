@@ -71,13 +71,16 @@ Note that these plots were generated using two different simulations and are not
 
 ![](docs/vol_corr_compare.jpg?raw=true)
 
-Note that the volatility of the underlying systemic variable for Credit Risk Plus has to be relatively large to map to the same correlation for Risk Metrics.
+Note that the volatility of the underlying systemic variable for Credit Risk Plus has to be relatively large to map to the same correlation for Risk Metrics.  Comparisons between the two methodologies have been studied extensively in the literature (eg, [Gordy (1997)](https://www.federalreserve.gov/pubs/feds/1998/199847/199847pap.pdf)).  The essential differences include:
+
+* Correlation between defaults are more dependent on the probability of default in the Risk Metrics model.  This implies that there is no method to consistently convert Risk Metrics correlations to Credit Risk Plus correlations for a heterogenous portfolio.  
+* Risk Metrics allows for granular correlations of assets with the industry.  In Credit Risk Plus, these correlations are controlled by the "weights" vector but would not directly match the correlations of the asset with the industry.
+* Risk Metrics does not allow for direct correlation of an asset with other assets in other industries.  The correlation is only indirectly correlated via the industry correlation.  In Credit Risk Plus, these correlations can be directly implemented via the "weights" vector.  
 
 ## Converting Risk Metrics correlation and R squared matrix to Credit Risk Plus
 
-Risk Metrics requires a correlation matrix for different industries.  Within each industry, an "R-squared" measures the amount of correlation between (fully diversified) obligors in the industry.  One way to map this matrix and R-squared vector is as follows:
-* Convert the R-squared to a standard deviation for a gamma random variable for each industry
-* Take the entries of the correlation matrix and convert these to weights for the other industry random variables for a given obligor
+### Convert industry correlation
+Risk Metrics requires a correlation matrix for different industries.  Within each industry, an "R-squared" measures the amount of correlation between (fully diversified) obligors in the industry.  One way to convert the industry correlation matrix is to take the entries of the correlation matrix and convert these to weights for the other industry random variables for a given obligor.
 
 As an example, consider the correlation from the Risk Metrics technical document:
 
@@ -85,17 +88,16 @@ As an example, consider the correlation from the Risk Metrics technical document
 
 The weight vector for an obligor in  industry 1 would be [.806, .129, .065].  The weight vector for an obligor in  industry 2 would be [.107, .666, .227].  The weight vector for an obligor in  industry 3 would be [.056, .240, .704].  
 
-## Roadmap
+### Convert R-squares
+One way to map the R-squared vector is to convert the R-squared to a variance for a gamma random variable for each industry.  This can be done by mapping the default correlation implied by Risk Metrics to the default correlation implied by Credit Risk Plus.  As an example, see 
+[this line in the model code](https://github.com/phillyfan1138/credit_faas_demo/blob/master/src/bin/main.rs#L70).  Note that this mapping requires a probability of default as an input.  For an entire industry, it makes sense to use the average probability of default for the obligors in the industry to accomplish this conversion.  
+
+## Completed
 
 * Parsimonious integration with correlations from Risk Metrics
-* Move to Gamma factor variables
-    * The required standard deviation for factor variables would make Gaussian factors have a relatively high probability of being negative.
-    * The Vasicek assumptions require estimation not only of the drift and volatility, but also the initial values of the process.  These are nearly impossible to estimate.
 * Include functions for computing risk contributions 
     * For an entire portfolio 
     * For an incremental loan.
-
-## Completed
 
 Goals (decreasing order of importance):
 
