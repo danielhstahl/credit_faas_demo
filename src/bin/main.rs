@@ -96,7 +96,7 @@ fn main() -> Result<(), io::Error> {
     let systemic_variance = r_squared
         .iter()
         .map(|&r_sq| {
-            get_systemic_variance(p, r_sq) //sqrt since given r-squared
+            get_systemic_variance(p, r_sq)
         })
         .collect::<Vec<_>>();
 
