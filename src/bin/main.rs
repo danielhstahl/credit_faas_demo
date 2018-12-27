@@ -92,7 +92,7 @@ fn main() -> Result<(), io::Error> {
         ..
     } = serde_json::from_str(args[1].as_str())?;
     let num_w = r_squared.len();
-    let p = 0.05; //just for test...note that this should be whatever the segment risk rating maps to.
+    let p = 0.05; //just for test. The p has to be constant per r-squared.  This could, for example, be the average PD per industry in the book.
     let systemic_variance = r_squared
         .iter()
         .map(|&r_sq| {
