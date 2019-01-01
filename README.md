@@ -71,7 +71,7 @@ Note that these plots were generated using two different simulations and are not
 
 ![](docs/vol_corr_compare.jpg?raw=true)
 
-Note that the volatility of the underlying systemic variable for Credit Risk Plus has to be relatively large to map to the same correlation for Risk Metrics.  Comparisons between the two methodologies have been studied extensively in the literature (eg, [Gordy (1997)](https://www.federalreserve.gov/pubs/feds/1998/199847/199847pap.pdf)).  The essential differences include:
+Note that the volatility of the underlying systemic variable for Credit Risk Plus has to be relatively large to map to the same correlation for Risk Metrics.  Comparisons between the two methodologies have been studied extensively in the literature (eg, [Gordy (1998)](https://www.federalreserve.gov/pubs/feds/1998/199847/199847pap.pdf)).  The essential differences include:
 
 * Correlation between defaults are more dependent on the probability of default in the Risk Metrics model.  This implies that there is no method to consistently convert Risk Metrics correlations to Credit Risk Plus correlations for a heterogenous portfolio.  
 * Risk Metrics allows for granular correlations of assets with the industry.  In Credit Risk Plus, these correlations are controlled by the "weights" vector but would not directly match the correlations of the asset with the industry.
