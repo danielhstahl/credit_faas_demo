@@ -11,10 +11,10 @@ extern crate serde_derive;
 #[macro_use]
 extern crate serde_json;
 use std::fs::File;
-use std::io;
 use std::io::prelude::*; //needed for write
 use std::io::BufRead;
 use std::io::BufReader;
+use std::error::Error;
 extern crate probability;
 use probability::prelude::*;
 #[macro_use]
@@ -80,7 +80,7 @@ fn gamma_mgf(variance: Vec<f64>) -> impl Fn(&[Complex<f64>]) -> Complex<f64> {
     }
 }
 
-fn main() -> Result<(), io::Error> {
+fn main() -> Result<(), Box<dyn Error> > {
     let args: Vec<String> = std::env::args().collect();
     let Parameters {
         lambda,
@@ -138,17 +138,19 @@ fn main() -> Result<(), io::Error> {
 
     let max_iterations = 100;
     let tolerance = 0.0001;
-    let (es, var) = cf_dist_utils::get_expected_shortfall_and_value_at_risk_discrete_cf(
+    let cf_dist_utils::RiskMetric{
+        expected_shortfall, value_at_risk
+    } = cf_dist_utils::get_expected_shortfall_and_value_at_risk_discrete_cf(
         0.01,
         x_min,
         x_max,
         max_iterations,
         tolerance,
         &final_cf,
-    );
+    )?;
 
-    println!("This is ES: {}", es);
-    println!("This is VaR: {}", var);
+    println!("This is ES: {}", expected_shortfall);
+    println!("This is VaR: {}", value_at_risk);
     Ok(())
 }
 #[cfg(test)]

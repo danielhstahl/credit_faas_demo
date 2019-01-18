@@ -90,7 +90,7 @@ The weight vector for an obligor in  industry 1 would be [.806, .129, .065].  Th
 
 ### Convert R-squares
 One way to map the R-squared vector is to convert the R-squared to a variance for a gamma random variable for each industry.  This can be done by mapping the default correlation implied by Risk Metrics to the default correlation implied by Credit Risk Plus.  As an example, see 
-[this line in the model code](https://github.com/phillyfan1138/credit_faas_demo/blob/master/src/bin/main.rs#L70).  Note that this mapping requires a probability of default as an input.  For an entire industry, it makes sense to use the average probability of default for the obligors in the industry to accomplish this conversion.  
+[this line in the model code](https://github.com/phillyfan1138/credit_faas_demo/blob/master/src/bin/main.rs#L68).  Note that this mapping requires a probability of default as an input.  For an entire industry, it makes sense to use the average probability of default for the obligors in the industry to accomplish this conversion.  
 
 ## Completed
 
