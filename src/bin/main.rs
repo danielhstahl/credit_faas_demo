@@ -1,25 +1,13 @@
-extern crate cf_dist_utils;
-extern crate cf_functions;
-extern crate fang_oost;
-extern crate loan_ec;
-extern crate num_complex;
-extern crate rayon;
-use self::num_complex::Complex;
-use self::rayon::prelude::*;
-#[macro_use]
-extern crate serde_derive;
-#[macro_use]
-extern crate serde_json;
+use num_complex::Complex;
+use rayon::prelude::*;
+use serde_derive::Deserialize;
+use serde_json::json;
 use std::fs::File;
 use std::io::prelude::*; //needed for write
 use std::io::BufRead;
 use std::io::BufReader;
 use std::error::Error;
-extern crate probability;
 use probability::prelude::*;
-#[macro_use]
-#[cfg(test)]
-extern crate approx;
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -156,7 +144,7 @@ fn main() -> Result<(), Box<dyn Error> > {
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    use approx::*;
     #[test]
     fn test_gamma_cf() {
         let kappa = 2.0;
