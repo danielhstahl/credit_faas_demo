@@ -1,13 +1,13 @@
 use num_complex::Complex;
+use probability::prelude::*;
 use rayon::prelude::*;
 use serde_derive::Deserialize;
 use serde_json::json;
+use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*; //needed for write
 use std::io::BufRead;
 use std::io::BufReader;
-use std::error::Error;
-use probability::prelude::*;
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -68,7 +68,7 @@ fn gamma_mgf(variance: Vec<f64>) -> impl Fn(&[Complex<f64>]) -> Complex<f64> {
     }
 }
 
-fn main() -> Result<(), Box<dyn Error> > {
+fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = std::env::args().collect();
     let Parameters {
         lambda,
@@ -83,9 +83,7 @@ fn main() -> Result<(), Box<dyn Error> > {
     let p = 0.05; //just for test. The p has to be constant per r-squared.  This could, for example, be the average PD per industry in the book.
     let systemic_variance = r_squared
         .iter()
-        .map(|&r_sq| {
-            get_systemic_variance(p, r_sq)
-        })
+        .map(|&r_sq| get_systemic_variance(p, r_sq))
         .collect::<Vec<_>>();
 
     let liquid_fn = loan_ec::get_liquidity_risk_fn(lambda, q);
@@ -126,8 +124,9 @@ fn main() -> Result<(), Box<dyn Error> > {
 
     let max_iterations = 100;
     let tolerance = 0.0001;
-    let cf_dist_utils::RiskMetric{
-        expected_shortfall, value_at_risk
+    let cf_dist_utils::RiskMetric {
+        expected_shortfall,
+        value_at_risk,
     } = cf_dist_utils::get_expected_shortfall_and_value_at_risk_discrete_cf(
         0.01,
         x_min,
