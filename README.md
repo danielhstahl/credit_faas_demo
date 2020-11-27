@@ -2,10 +2,10 @@
 | :---------------: | :-----------------: |
 | ![lin-badge]      | ![cov-badge]        |
 
-[lin-badge]: https://travis-ci.com/phillyfan1138/credit_faas_demo.svg "Travis build status"
-[lin-link]:  https://travis-ci.com/phillyfan1138/credit_faas_demo "Travis build status"
-[cov-badge]: https://codecov.io/gh/phillyfan1138/credit_faas_demo/branch/master/graph/badge.svg
-[cov-link]:  https://codecov.io/gh/phillyfan1138/credit_faas_demo
+[lin-badge]: https://travis-ci.com/danielhstahl/credit_faas_demo.svg "Travis build status"
+[lin-link]:  https://travis-ci.com/danielhstahl/credit_faas_demo "Travis build status"
+[cov-badge]: https://codecov.io/gh/danielhstahl/credit_faas_demo/branch/master/graph/badge.svg
+[cov-link]:  https://codecov.io/gh/danielhstahl/credit_faas_demo
 
 ## Demo for Credit FaaS
 
@@ -13,7 +13,7 @@ This project showcases how to use Fang Oosterlee's algorithm for efficiently com
 
 ## Documentation
 
-Model documentation and theory is available in the [Credit Risk Extensions](https://github.com/phillyfan1138/CreditRiskExtensions/blob/master/StahlMultiVariatePaper.pdf) repository.
+Model documentation and theory is available in the [Credit Risk Extensions](https://github.com/danielhstahl/CreditRiskExtensions/blob/master/StahlMultiVariatePaper.pdf) repository.
 
 ## Features
 
@@ -25,7 +25,7 @@ The model allows for:
 
 ## How to build
 First, download this repo:
-`git clone https://github.com/phillyfan1138/credit_faas_demo`
+`git clone https://github.com/danielhstahl/credit_faas_demo`
 
 Change directory into the folder:
 `cd credit_faas_demo`
@@ -90,7 +90,7 @@ The weight vector for an obligor in  industry 1 would be [.806, .129, .065].  Th
 
 ### Convert R-squares
 One way to map the R-squared vector is to convert the R-squared to a variance for a gamma random variable for each industry.  This can be done by mapping the default correlation implied by Risk Metrics to the default correlation implied by Credit Risk Plus.  As an example, see 
-[this line in the model code](https://github.com/phillyfan1138/credit_faas_demo/blob/master/src/bin/main.rs#L68).  Note that this mapping requires a probability of default as an input.  For an entire industry, it makes sense to use the average probability of default for the obligors in the industry to accomplish this conversion.  
+[this line in the model code](https://github.com/danielhstahl/credit_faas_demo/blob/master/src/bin/main.rs#L68).  Note that this mapping requires a probability of default as an input.  For an entire industry, it makes sense to use the average probability of default for the obligors in the industry to accomplish this conversion.  
 
 ## Completed
 
